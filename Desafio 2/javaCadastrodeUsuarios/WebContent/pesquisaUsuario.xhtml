@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templatePrincipal.xhtml">
+	<ui:define name="cabecalho">
+		<h1 class="teste">Pesquisar Usuarios</h1>
+	</ui:define>
+	<ui:define name="conteudo">
+		<p:growl id="growl" showDetail="true" />
+
+		<p:panelGrid style="width: 100%">
+			<p:row>
+				<p:column>
+					<p:outputLabel value="CPF:" />
+				</p:column>
+				<p:column colspan="3">
+					<p:inputText value="#{UsuarioBean.usuario.cpf}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel value="Nome:" />
+				</p:column>
+				<p:column>
+					<p:inputText value="#{UsuarioBean.usuario.nome}" />
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Email:" />
+				</p:column>
+				<p:column>
+					<p:inputText value="#{UsuarioBean.usuario.email}" />
+				</p:column>				
+			</p:row>
+			<p:row>
+				<p:column>
+					<p:outputLabel value="DDD:" />
+				</p:column>
+				<p:column>
+					<p:inputText value="#{UsuarioBean.telefones.ddd}" />
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Numero:" />
+				</p:column>
+				<p:column>
+					<p:inputText value="#{UsuarioBean.telefones.numero}" />
+				</p:column>
+				<p:column>
+					<p:outputLabel value="Tipo:" />
+				</p:column>
+				<p:column>
+					<p:inputText value="#{UsuarioBean.telefones.tipo}" />
+				</p:column>
+			</p:row>
+			<p:row>
+				<p:column colspan="4">
+					<p:commandButton value="PESQUISAR" update="@form"
+						actionListener="#{UsuarioBean.pesquisarUsuario}" />
+				</p:column>
+			</p:row>			
+			<p:row>
+				<p:column colspan="4">
+					<p:fieldset legend="Usuarios">
+						<p:panelGrid style="width: 100%">
+							<p:row>
+								<p:column colspan="3">
+									<p:dataTable value="#{UsuarioBean.listaUsuarios}" var="usuarioGrid">
+										<p:column headerText="CPF">
+											<h:outputText value="#{usuarioGrid.cpf}"/>
+										</p:column>
+										<p:column headerText="Nome">
+											<h:outputText value="#{usuarioGrid.nome}" />
+										</p:column>
+										<p:column headerText="Email">
+											<h:outputText value="#{clienteGrid.email}" />
+										</p:column>
+										<p:column headerText="#">
+											<p:commandButton value="Editar" update="@form" action="#{UsuarioBean.editarUsuario}">
+												<f:setPropertyActionListener
+													target="#{UsuarioBean.cpfSelecionado}"
+													value="#{usuarioGrid.cpf}" />
+											</p:commandButton>
+										</p:column>
+										<p:column headerText="#">
+											<p:commandButton value="Remover" update="@form" action="#{UsuarioBean.removerUsuario}">
+												<f:setPropertyActionListener
+													target="#{UsuarioBean.cpfSelecionado}"
+													value="#{usuarioGrid.cpf}" />
+											</p:commandButton>
+										</p:column>
+									</p:dataTable>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</p:fieldset>
+				</p:column>
+			</p:row>
+		</p:panelGrid>
+	</ui:define>
+</ui:composition>
+
+</html>
